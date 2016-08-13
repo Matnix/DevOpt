@@ -1,0 +1,119 @@
+DELETE FROM _user WHERE license_code in ('411326100919','411326102522','411328100058','411328102842','411328104631','411328105371','411328103053','411328103248','411328104885','411328104812','411328101940','411328100775','411328100812','411328100780','411328103334','411328104712','411328102797','411328104914','411328104442','411328104436','411328107736','411328103460','411328104444','411328100434','411328104820','411328104038','411328107390','411328104734','411328101247','411328104665','411328102961','411328105068','411328105022','411328201961','411328104742','411328105027','411328200475','411328100413','411328101973','411328107341','411328100919','411328103318','411328104560','411328104963','411328103455','411328101524','411328100803','411328106376','411328101618','411328106075','411328101746','411328105072','411328107286','411328205272','411328101216','411328106257','411328201202','411328105253','411328201291','411328104391','411328100156','411328100239','411328107253','411328102698','411328104046','411328102049','411328100098','411328100132','411328105820','411328100711','411328105204','411328104995','411328107444');
+psql -p 5444 -h 10.67.192.47 -U baccymis -d baccymis -c "\copy (select * from _user ) to '/home/hbyc_1226.csv' WITH  HEADER DELIMITER AS ','"
+psql -p 5444 -h 10.66.33.13 -U baccymis -d baccymis -c "\copy (select * from _user ) to '/home/lyyc_0313.csv' WITH CSV  HEADER DELIMITER AS ','"
+
+####client####
+apt-get update && apt-get -y upgrade && apt-get -y install puppet
+find /var/lib/puppet/ssl/ -type f -delete
+****第二行后添加 host name ip 对应，并使之生效************
+sed -i "2 a 10.21.150.182  lfyc-gw3" /etc/hosts && hostname -F /etc/hostname  && puppetd --server lfyc-gw3 --test
+sed -i "2 a 192.168.10.15  lfyc-gw3" /etc/hosts && hostname -F /etc/hostname  && puppetd --server lfyc-gw3 --test
+find /var/lib/puppet/ssl/ -type f -delete && sed -i "2 a 192.168.10.15  lfyc-gw3" /etc/hosts && hostname -F /etc/hostname  && puppetd --server lfyc-gw3 --test
+puppetd --server psi1-kvm2 --test
+####server####
+puppetca --list
+puppetca -s -a
+######################
+lfyc-psi1,lfyc-psi2,lfyc-psi3,lfyc-gw1,lfyc-gw2,lfyc-gw3,baccy-zg1,baccy-zg2,psi1-kvm1,psi2-kvm1,psi2-kvm2,psi2-kvm3,psi2-kvm4,psi3-kvm1,psi3-kvm2,psi3-kvm3,psi3-kvm4,gw2-kvm1,gw2-kvm2,gw1-kvm1,gw1-kvm2,gw3-kvm1,gw3-kvm2,zg1-xen1,zg1-xen2,zg1-xen3,zg2-xen1,zg2-xen2,zg2-xen3
+
+
+###########3
+On the master:
+  puppet cert clean gw1-kvm2
+On the agent:
+  rm -f /var/lib/puppet/ssl/certs/gw1-kvm2.pem
+  puppet agent -t
+########################3
+ <Connector port="8080" protocol="HTTP/1.1"
+               maxThreads="256"
+               minSpareThreads="25"
+               acceptCount="512"
+               connectionTimeout="20000"
+               URIEncoding="UTF-8"
+               redirectPort="8443" />
+
+
+ ##########3#########################################0###
+               maxThreads="256"
+               minSpareThreads="25"
+               acceptCount="512"
+           
+
+
+sed  '/<Directory /,/<\/Directory>/{
+/<Directory /a \
+ Options None\
+AllowOverride None\
+Order deny,allow\
+Deny from all
+}
+
+JAVA_OPTS="-server -Xms4096m -Xmx4096m -Xmn1024m -XX:PermSize=256m -XX:MaxPermSize=512m"
+######################tomcat init shellscript########################################
+#!/bin/bash
+chown -R tomcat7:tomcat7 /usr/share/tomcat7
+mkdir /var/lib/tomcat7/temp/
+chown -R tomcat7:tomcat7 /var/lib/tomcat7/temp
+sed -i '/\<Connector port="8080"/a\
+               maxThreads="256"\
+               minSpareThreads="25"\
+               acceptCount="512"
+' /etc/tomcat7/server.xml
+
+sed  -i '100a\
+JAVA_OPTS="-server -Xms2048m -Xmx2048m -Xmn1024m -XX:PermSize=256m -XX:MaxPermSize=512m"
+'  /usr/share/tomcat7/bin/catalina.sh
+####################################
+location ~^/collectinfo_webservice {
+            proxy_pass http://192.168.10.26:8080;
+            proxy_read_timeout  600;
+            proxy_send_timeout 600;
+            proxy_connect_timeout 60;
+            proxy_redirect default;
+        }
+
+##################################
+qemu-img create -f raw /home/data_base/disk1.img 1000G
+<disk type='file' device='disk'>
+      <driver name='qemu' type='raw' cache='none'/>
+      <source file='/home/data_base/disk1.img'/>
+      <target dev='vdb' bus='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x3' multifunction='on'/>
+    </disk>
+    
+ nfserver  /var/share_json        192.168.10.0/24(rw,no_root_squash,sync,no_subtree_check)
+ 192.168.10.61:/var/share_json /var/share_dir     nfs     defaults        0       2
+ ########################################################################
+ /usr/bin/pg_dump -U psiserver psiserver -p 5444 -h 10.21.110.182>/var/backups/psiserver_20140226.sql
+/usr/bin/pg_dump -U baccymis baccymis -p 5444 -h 10.21.110.182 >/var/backups/baccymis_20140226.sql
+psql -p 5444 -h 192.168.10.32 -U psiserver -c "\i ;" >>update_20140414.log 2>&1
+
+
+##########网卡接口mac地址与ip地址的对应
+sudo ifconfig  eth0 |awk '{print $2,$5}'|head -2|tac|sed '$!N;s/\n/ /' >>ip_mac.txt
+
+psql -p 5444 -h 10.66.33.13 -U baccymis -d baccymis -c "\i /home/ops/20140330_update/sh"
+
+####################################333  20140415
+select c.license_code,b.ordernum,b.baccyid, b.totalnum, a.subtime from order_form a,order_item_1401_1406 b , _user c where a.orderid = b.orderid and a.v3code = c.v3_code and b.baccyid='31010101';
+#某个月手机订烟户使用手机订购硬中华的数量统计
+select a1.license_code, b1.cust_name,a1.sum from (select c.license_code, sum(cast(b.totalnum as int)) from order_form a,order_item_1401_1406 b , _user c where a.orderid = b.orderid and a.v3code = c.v3_code and b.baccyid='31010101' and a.subtime>'2014-01-01' and a.subtime<'2014-02-01'group by c.license_code) a1, _user b1 where a1.license_code = b1.license_code;
+select a1.license_code, b1.cust_name, b1.phone_num ,a1.sum from (select c.license_code, sum(cast(b.totalnum as int)) from order_form a,order_item_1401_1406 b , _user c where a.orderid = b.orderid and a.v3code = c.v3_code and b.baccyid='31010101' and a.subtime>'2014-01-01' and a.subtime<'2014-02-01'group by c.license_code) a1, _user b1 where a1.license_code = b1.license_code;
+######终极版##############
+psql -p 5444 -h 10.67.192.48 -U baccymis -d baccymis -c "\copy (select a1.license_code, b1.cust_name, b1.phone_num ,a1.sum from (select c.license_code, sum(cast(b.totalnum as int)) from order_form a,order_item_1401_1406 b , _user c where a.orderid = b.orderid and a.v3code = c.v3_code and b.baccyid='31010101' and a.subtime>'2014-01-01' and a.subtime<'2014-02-01'group by c.license_code) a1, _user b1 where a1.license_code = b1.license_code) to '/home/db_output/nyyc0415.csv' WITH CSV  HEADER DELIMITER AS ','" 
+
+
+
+find ~ -name ‘*.log’ -print0 | xargs -0 rm -f 
+*******删除当期目录下所有最后修改时间超过7天的文件,并递归到子目录****************
+sudo find ./ -mindepth 1  -type f -daystart -mtime +3 -exec rm -rf {} \;
+************查询当前目录下各个文件夹所占用的空间***********************
+du -h --max-depth=1 ./
+
+#####################根据打开的端口关闭进程###############################
+kill -15 `lsof -i:8092 |grep java |awk '{print $2}' || lsof -i:8888 |grep java |awk '{print $2}'` 2&1 > /dev/null
+#####################################
+curl -v --user-agent "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko" http://218.28.106.18:8883/baccy_server/
+curl -v --user-agent  "Dalvik/1.4.0 (Linux; U; Android 2.3.3; C8800 Build/HuaweiC8800)" http://218.28.106.18:8883/baccy_server/
+######################rabbitmq 策略 ############################################33
+rabbitmqctl set_policy -p / HA "^" '{"ha-mode":"all","ha-sync-mode":"automatic"}'
