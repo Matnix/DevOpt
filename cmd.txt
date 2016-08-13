@@ -117,3 +117,20 @@ curl -v --user-agent "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) 
 curl -v --user-agent  "Dalvik/1.4.0 (Linux; U; Android 2.3.3; C8800 Build/HuaweiC8800)" http://218.28.106.18:8883/baccy_server/
 ######################rabbitmq 策略 ############################################33
 rabbitmqctl set_policy -p / HA "^" '{"ha-mode":"all","ha-sync-mode":"automatic"}'
+
+
+#############山西联通机房服务器托管-10m光纤限速(全双工)网卡配置#######################
+vi /etc/sysconfig/network-scripts/ifcfg-em1
+
+DEVICE=em1
+HWADDR=XX:XX:XX:XX:XX:XX
+TYPE=Ethernet
+UUID=a0b23577-8b29-4533-aff2-7fe409359056
+ONBOOT=yes
+NM_CONTROLLED=yes
+BOOTPROTO=none
+IPADDR=x.x.x.x
+NETMASK=x.x.x.x
+GATEWAY=x.x.x.x
+ETHTOOL_OPTS="speed 10 duplex full autoneg off"
+##########################################################
