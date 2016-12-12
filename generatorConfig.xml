@@ -20,7 +20,7 @@
         </commentGenerator>
 
 
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://120.27.114.87:3306/heneng?characterEncoding=utf8" userId="yangs" password="yangs123">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/heneng?characterEncoding=utf8" userId="yangs" password="yangs123">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="true"/>
