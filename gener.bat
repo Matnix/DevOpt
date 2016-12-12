@@ -1,0 +1,1 @@
+java -cp mybatis-generator-core-1.3.5.jar;mapper-3.3.9.jar org.mybatis.generator.api.ShellRunner -configfile generatorConfig.xml -overwrite

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <classPathEntry    location="mysql-connector-java-5.1.10-bin.jar"/>
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+		<property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+		<property name="javaFileEncoding" value="UTF-8"/>
+		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+			<property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+		</plugin>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+			<property name="javaFileEncoding" value="UTF-8"/>
+        </commentGenerator>
+
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://120.27.114.87:3306/heneng?characterEncoding=utf8" userId="yangs" password="yangs123">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.heneng.model" targetProject="D:\sihe_\heneng_project\heneng_server\bbc_heneng\src">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.heneng.dao.mapper" targetProject="D:\sihe_\heneng_project\heneng_server\bbc_heneng\src">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+ 
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.heneng.dao" targetProject="D:\sihe_\heneng_project\heneng_server\bbc_heneng\src">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--<table tableName="bbc_customerinfo" >
+			<generatedKey column="bbc_customerid" sqlStatement="Mysql" identity="true"/>
+		</table> 
+		<table tableName="projects_info" >
+			<generatedKey column="projectid" sqlStatement="Mysql" identity="true"/>
+		</table>
+		<table tableName="project_product_list" >
+			<generatedKey column="project_product_id" sqlStatement="Mysql" identity="true"/>
+		</table>-->
+		<table tableName="project_quotation" >
+			<generatedKey column="project_quotation_id" sqlStatement="Mysql" identity="true"/>
+		</table>
+		<table tableName="project_quotation_item" >
+			<generatedKey column="project_quotation_item_id" sqlStatement="Mysql" identity="true"/>
+		</table>
+    </context>
+</generatorConfiguration>
