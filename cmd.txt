@@ -133,4 +133,6 @@ IPADDR=x.x.x.x
 NETMASK=x.x.x.x
 GATEWAY=x.x.x.x
 ETHTOOL_OPTS="speed 10 duplex full autoneg off"
-##########################################################
+#################################################################
+########裁剪日志命令##################
+split -b 50M catalina.out catalina.out.bak
