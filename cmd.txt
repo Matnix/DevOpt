@@ -109,6 +109,7 @@ find ~ -name ‘*.log’ -print0 | xargs -0 rm -f
 sudo find ./ -mindepth 1  -type f -daystart -mtime +3 -exec rm -rf {} \;
 ************查询当前目录下各个文件夹所占用的空间***********************
 du -h --max-depth=1 ./
+du -sh
 
 #####################根据打开的端口关闭进程###############################
 kill -15 `lsof -i:8092 |grep java |awk '{print $2}' || lsof -i:8888 |grep java |awk '{print $2}'` 2&1 > /dev/null
