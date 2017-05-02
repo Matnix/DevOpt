@@ -137,3 +137,5 @@ ETHTOOL_OPTS="speed 10 duplex full autoneg off"
 #################################################################
 ########裁剪日志命令##################
 split -b 50M catalina.out catalina.out.bak
+#######查看服务器启动时间命令########
+date -d "$(awk -F. '{print $1}' /proc/uptime) second ago" +"%Y-%m-%d %H:%M:%S"
